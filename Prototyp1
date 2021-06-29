@@ -1,0 +1,50 @@
+instructions = {
+'instructions_1' : 'Willkommen zu unserem Spiel!: \n\n Zuerst wirst du zufällig in eine der beiden Gruppen gelost, um fortzufahren drücke die Leertaste.  \n\n '
+'Instructions_2':  'Wunderbar! Du bist in der Gruppe der Annehmenden und eure Erkennungsfarbe ist blau. Drücke die Leertaste um fortzufahren…' 
+'Instructions_3': 'In den nächsten Minuten wirst du Geld Angebote von Spielenden erhalten, die pro Spieldurchgang 10 Euro zur Verfügung stehen haben. \n\n Du kannst diese Angebote annehmen und ihr gewinnt jeweils euren Anteil oder ablehnen und beide gehen leer aus. \n\n Dafür gibst du deine Antwort in das dafür vorgesehen Feld ein. \n\n Drücke die Leertaste um weiter zu gehen… '
+'Instructions_4': 'Doch zuerst kannst du dir einen Avatar aussuchen. \n\n Benutze dazu die Pfeiltasten und bestätige mit der Leertaste.' 
+ }
+
+def present_text(window_instance,
+        instr_text ='Ich bin der Standardsatz!',
+        text_size = 0.075,
+        instructions = True,
+        test_position = (0.,0.),
+        unit = 'norm',
+        continue_key = 'space'): 
+text_stim = visual.TextStim(window_instance,
+        height=text_size,
+        units = unit,
+        pos = text_position)
+text_stim.setText(instr_text)
+text_stim.draw()
+window_instance.flip()
+
+if instructions == True:
+        event.waitKeys(keyList=[continue_key]) 
+else:
+        core.wait(2)
+return None 
+
+
+
+from psychopy import gui
+import os
+import pandas as pd
+
+expName = 'Game'
+
+expInfo= {'SubjID': '',
+          'Gender':['Female', 'Male','Other'],
+          'Age': ''
+          }
+
+dlg = gui.DlgFromDict(expInfo, title = expName)
+
+#stops if the gui is not closed with OK
+if not dlg.OK:
+    core.quit()
+
+data=pd.DataFrame([expInfo])
+data.to_csv(os.getcwd() + '/subjs'expInfo['SubjID']+'_info.csv',sep=',',index=False,header=True)
+    
